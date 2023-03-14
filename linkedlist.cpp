@@ -539,6 +539,7 @@ int32_t main()
     cout << head << endl;
 
     cout << "end of line" << endl;
+    cout << "end" << endl;
 
     return 0;
 }
