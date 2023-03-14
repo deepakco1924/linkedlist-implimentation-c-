@@ -1,45 +1,44 @@
-#include<bits/stdc++.h>
-#include<ext/pb_ds/assoc_container.hpp>
-#include<ext/pb_ds/tree_policy.hpp>
+#include <bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
 using namespace std;
 using namespace __gnu_pbds;
-template<typename T>
+template <typename T>
 using new_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
-
-
-
-#define si(x) scanf("%d",&x)
-#define sl(x) scanf("%lld",&x)
-#define pi(x) printf("%d\n",x)
-#define pl(x) printf("%lld\n",x)
+#define si(x) scanf("%d", &x)
+#define sl(x) scanf("%lld", &x)
+#define pi(x) printf("%d\n", x)
+#define pl(x) printf("%lld\n", x)
 #define endl "\n"
-#define all(x) x.begin(),x.end()
-#define clr(x) memset(x,0,sizeof(x))
+#define all(x) x.begin(), x.end()
+#define clr(x) memset(x, 0, sizeof(x))
 #define int long long
-#define ff               first
-#define ss               second
-#define int             long long
-#define pb              push_back
-#define mp              make_pair
-#define pii             pair<int,int>
-#define vi              vector<int>
-#define mii             map<int,int>
-#define pqb             priority_queue<int>
-#define pqs             priority_queue<int,vi,greater<int> >
-#define setbits(x)      __builtin_popcountll(x)
-#define zerobits(x)      __builtin_ctzll(x)
-#define mod             1000000007
-#define inf             1e18
-#define sp(x,y)         fixed<<setprecision(y)<<x
-#define mk(arr,n,type)  type *arr=new type[n];
-#define w(x)            int x; cin>>x; while(x--)
-mt19937                 rng(chrono::steady_clock::now().time_since_epoch().count());
+#define ff first
+#define ss second
+#define int long long
+#define pb push_back
+#define mp make_pair
+#define pii pair<int, int>
+#define vi vector<int>
+#define mii map<int, int>
+#define pqb priority_queue<int>
+#define pqs priority_queue<int, vi, greater<int>>
+#define setbits(x) __builtin_popcountll(x)
+#define zerobits(x) __builtin_ctzll(x)
+#define mod 1000000007
+#define inf 1e18
+#define sp(x, y) fixed << setprecision(y) << x
+#define mk(arr, n, type) type *arr = new type[n];
+#define w(x)  \
+    int x;    \
+    cin >> x; \
+    while (x--)
+mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 
-
-//LINKED LIST
-//it is liner data structure and dnynamic in nature
-//it is not continguish memory but node in liner
+// LINKED LIST
+// it is liner data structure and dnynamic in nature
+// it is not continguish memory but node in liner
 
 // advantage of linked list is
 // 1.the size is dyanmic in nature
@@ -50,27 +49,24 @@ mt19937                 rng(chrono::steady_clock::now().time_since_epoch().count
 // 2.extrra memory space required for pointer_safety
 // 3. array have better cache locality
 
-
-//IMPLIMENTATION
+// IMPLIMENTATION
 class node
 {
 public:
     int data;
-    node *next;   ///the whole class is one node
-    //in which one data and pointer to the next node
-    node(int  d)
+    node *next; /// the whole class is one node
+    // in which one data and pointer to the next node
+    node(int d)
     {
         this->data = d;
         this->next = NULL;
     }
-
-
 };
-//first take example of inseration
-//1.insert at head
-//2.insert at middle
-//3.insert at the end
-void insert_athead(node* &head, int d) //poiinting the head by refreance so that it reflect in main
+// first take example of inseration
+// 1.insert at head
+// 2.insert at middle
+// 3.insert at the end
+void insert_athead(node *&head, int d) // poiinting the head by refreance so that it reflect in main
 {
     if (head == NULL)
     {
@@ -80,8 +76,7 @@ void insert_athead(node* &head, int d) //poiinting the head by refreance so that
     node *temp = head;
     head = new node(d);
     head->next = temp;
-    return ;
-
+    return;
 }
 int length(node *head)
 {
@@ -93,33 +88,33 @@ int length(node *head)
     }
     return cnt;
 }
-void insert_at_tail(node* &head, int d)
+void insert_at_tail(node *&head, int d)
 {
     if (head == NULL)
     {
         head = new node(d);
-        return ;
+        return;
     }
-    node* temp = head;
+    node *temp = head;
     while (temp->next != NULL)
     {
         temp = temp->next;
     }
     temp->next = new node(d);
-    return ;
+    return;
 }
-//insert at middle
-void insert_at_midddle(node* &head, int d, int pos)
+// insert at middle
+void insert_at_midddle(node *&head, int d, int pos)
 {
     if (pos == 0 || head == NULL)
     {
         insert_athead(head, d);
-        return ;
+        return;
     }
     else if (pos >= length(head))
     {
         insert_at_tail(head, d);
-        return ;
+        return;
     }
     node *temp = head;
     for (int i = 1; i < pos; i++)
@@ -129,11 +124,9 @@ void insert_at_midddle(node* &head, int d, int pos)
     node *n = new node(d);
     n->next = temp->next;
     temp->next = n;
-    return ;
-
-
+    return;
 }
-void print_list(node* head)
+void print_list(node *head)
 {
     while (head != NULL)
     {
@@ -141,32 +134,31 @@ void print_list(node* head)
         head = head->next;
     }
     cout << endl;
-    return ;
+    return;
 }
-//DELETION
-//1.at head;
-//2.from middle
-//3.from the tail
+// DELETION
+// 1.at head;
+// 2.from middle
+// 3.from the tail
 void delete_from_head(node *&head)
 {
     if (head == NULL)
     {
-        //head is null than do nothing
-        return ;
+        // head is null than do nothing
+        return;
     }
-    node* temp = head;
+    node *temp = head;
     head = head->next;
     delete temp;
-    return ;
-
+    return;
 }
-void delete_from_tail(node* &head)
+void delete_from_tail(node *&head)
 {
     if (head == NULL || head->next == NULL)
     {
         delete head;
         head = NULL;
-        return ;
+        return;
     }
     node *temp = head;
     node *prev = head;
@@ -177,34 +169,34 @@ void delete_from_tail(node* &head)
     }
     prev->next = NULL;
     delete temp;
-    return ;
+    return;
 }
-void delete_from_middle(node* &head, int pos)
+void delete_from_middle(node *&head, int pos)
 {
     if (head == NULL or pos >= length(head))
     {
-        //do nothing
-        return ;
+        // do nothing
+        return;
     }
     else if (pos == 0)
     {
-        node* temp = head;
+        node *temp = head;
         head = head->next;
         delete temp;
-        return ;
+        return;
     }
-    //else we go to ppos
-    node* temp = head;
+    // else we go to ppos
+    node *temp = head;
     for (int i = 1; i < pos; i++)
     {
         temp = temp->next;
     }
-    node* n = temp->next;
+    node *n = temp->next;
     temp->next = temp->next->next;
     delete n;
-    return ;
+    return;
 }
-//SEARching
+// SEARching
 bool search_key(node *head, int key)
 {
     while (head != NULL)
@@ -228,78 +220,76 @@ bool search_recursive(node *head, int key)
         return true;
     }
     return search_recursive(head->next, key);
-
 }
-//taking input from user till -1;
+// taking input from user till -1;
 void build(node *&head)
 {
     int d;
     cin >> d;
-    while (d != -1) //till end of file
+    while (d != -1) // till end of file
     {
         insert_at_tail(head, d);
         cin >> d;
-
     }
-    return ;
+    return;
 }
-//operator overloading
-istream& operator >>(istream &is, node* &head)
+// operator overloading
+istream &operator>>(istream &is, node *&head)
 {
     build(head);
-    return is ;
+    return is;
 }
-ostream& operator<<(ostream &os, node* head)
+ostream &operator<<(ostream &os, node *head)
 {
     print_list(head);
     return os;
 }
-//reversing the linkedlist
-//swaping is not efficent way to reverse
-//but what can we. we will change the direction of node->next from front to next;
-void reverse_list(node* &head)
+// reversing the linkedlist
+// swaping is not efficent way to reverse
+// but what can we. we will change the direction of node->next from front to next;
+void reverse_list(node *&head)
 {
     if (head == NULL or head->next == NULL)
     {
-        return ;
+        return;
     }
-    node* prev = NULL;
-    node* current = head;
-    node* nextelement = NULL;
+    node *prev = NULL;
+    node *current = head;
+    node *nextelement = NULL;
     while (current != NULL)
     {
         nextelement = current->next;
         current->next = prev;
         prev = current;
         current = nextelement;
-
     }
     head = prev;
 }
-node* recursive_reverse(node *head)
+node *recursive_reverse(node *head)
 {
-    if (head == NULL || head->next == NULL) {
+    if (head == NULL || head->next == NULL)
+    {
         return head;
     }
-    node* smallhead = recursive_reverse(head->next);
-    node* temp = head;
+    node *smallhead = recursive_reverse(head->next);
+    node *temp = head;
     temp->next->next = head;
     temp->next = NULL;
     return smallhead;
 }
-int ruuner_techinique(node* head)
+int ruuner_techinique(node *head)
 {
     if (head == NULL)
     {
-        //if no element is their then no median
+        // if no element is their then no median
         return -1;
     }
     if (head->next == NULL)
     {
         return head->data;
     }
-    node* slow = head;
-    node* fast = head->next;
+    node *slow = head;
+    node *fast = head->next;
     while (fast != NULL && fast->next != NULL)
     {
         fast = fast->next->next;
@@ -307,22 +297,21 @@ int ruuner_techinique(node* head)
     }
     return slow->data;
 }
-//find the kthe node from the end
-int find_kthnode(node* head, int k)
+// find the kthe node from the end
+int find_kthnode(node *head, int k)
 {
-    //1.apprch is that find the length of list
-    //and go from lenght-k steps
-    // it take two traversel
-    //2.approch is that fast and slow
-    //first fast move k step
-    //than both fast and slow move with same speed one step
+    // 1.apprch is that find the length of list
+    // and go from lenght-k steps
+    //  it take two traversel
+    // 2.approch is that fast and slow
+    // first fast move k step
+    // than both fast and slow move with same speed one step
     if (head == NULL || k > length(head))
     {
         return -1;
-
     }
     node *fast = head;
-    node* slow = head;
+    node *slow = head;
     for (int i = 0; i < k; i++)
     {
         fast = fast->next;
@@ -334,11 +323,10 @@ int find_kthnode(node* head, int k)
         /* code */
     }
     return slow->data;
-
 }
-//solve_two mergo sorted array
+// solve_two mergo sorted array
 //
-node* merge_list(node* a, node* b)
+node *merge_list(node *a, node *b)
 {
     if (a == NULL)
     {
@@ -348,7 +336,7 @@ node* merge_list(node* a, node* b)
     {
         return a;
     }
-    node* temp;
+    node *temp;
     if (a->data > b->data)
     {
         temp = b;
@@ -360,16 +348,15 @@ node* merge_list(node* a, node* b)
         temp->next = merge_list(a->next, b);
     }
     return temp;
-
 }
-node* find_middle(node* head)
+node *find_middle(node *head)
 {
     if (head == NULL || head->next == NULL)
     {
         return head;
     }
-    node* fast = head->next;
-    node* slow = head;
+    node *fast = head->next;
+    node *slow = head;
     while (fast != NULL && fast->next != NULL)
     {
         fast = fast->next->next;
@@ -377,48 +364,48 @@ node* find_middle(node* head)
     }
     return slow;
 }
-node* mergesort(node* head)
+node *mergesort(node *head)
 {
     if (head == NULL || head->next == NULL)
     {
         return head;
     }
-    node* mid = find_middle(head);
-    node* a = head;
-    node* b = mid->next;
+    node *mid = find_middle(head);
+    node *a = head;
+    node *b = mid->next;
     mid->next = NULL;
     a = mergesort(a);
     b = mergesort(b);
-    node* c = merge_list(a, b);
+    node *c = merge_list(a, b);
     return c;
 }
-//flowd cycle algrothm
-//to detect the cycle present in the linked list
+// flowd cycle algrothm
+// to detect the cycle present in the linked list
 bool cycle_detect(node *head)
 {
-    node* fast = head;
-    node* slow = fast;
+    node *fast = head;
+    node *slow = fast;
     while (fast != NULL && fast->next != NULL)
     {
         fast = fast->next->next;
         slow = slow->next;
         if (fast == slow)
         {
-            return  true;
+            return true;
         }
     }
     return false;
 }
-//to remove the cycle first solve
-//first find the cycle present then
-//that means fast ==slow
-//then slow point to head
-//then move slow and fast one step
-//then when they again meet is the point of intersion
-void remove_the_cycle(node* &head)
+// to remove the cycle first solve
+// first find the cycle present then
+// that means fast ==slow
+// then slow point to head
+// then move slow and fast one step
+// then when they again meet is the point of intersion
+void remove_the_cycle(node *&head)
 {
-    node* fast = head;
-    node* slow = fast;
+    node *fast = head;
+    node *slow = fast;
     while (fast != NULL && fast->next != NULL)
     {
         fast = fast->next->next;
@@ -435,29 +422,27 @@ void remove_the_cycle(node* &head)
         fast = fast->next;
     }
     fast->next = NULL;
-    return ;
-
+    return;
 }
 
-//circuclar linked list
-//it is the list wich is cirulare in nature
-// its is used implimnet to make circular queue
+// circuclar linked list
+// it is the list wich is cirulare in nature
+//  its is used implimnet to make circular queue
 class Node
 {
 public:
     int data;
-    Node* next;
+    Node *next;
     Node(int d)
     {
         this->data = d;
         this->next = NULL;
-
     }
 };
-void insert_at_head_circular(Node* &head, int d)
+void insert_at_head_circular(Node *&head, int d)
 {
-    Node* n = new Node(d);
-    Node* temp = head;
+    Node *n = new Node(d);
+    Node *temp = head;
     if (temp != NULL)
 
     {
@@ -466,29 +451,29 @@ void insert_at_head_circular(Node* &head, int d)
             temp = temp->next;
         }
         temp->next = n;
-
     }
-    else {
+    else
+    {
         n->next = n;
     }
     head = n;
 }
-void print_circuarlist(Node* head)
+void print_circuarlist(Node *head)
 {
     if (head == NULL)
     {
-        return ;
+        return;
     }
-    Node* temp = head;
+    Node *temp = head;
     while (temp->next != head)
     {
         cout << temp->data << "->";
         temp = temp->next;
     }
 }
-Node* getnode(Node*& head, int d)
+Node *getnode(Node *&head, int d)
 {
-    Node* temp = head;
+    Node *temp = head;
     while (temp->next != head)
     {
         if (temp->data == d)
@@ -502,35 +487,37 @@ Node* getnode(Node*& head, int d)
     }
     return NULL;
 }
-void deltenode(Node* &head, int d)
+void deltenode(Node *&head, int d)
 {
-    Node* del = getnode(head, d);
+    Node *del = getnode(head, d);
     if (del == NULL)
     {
-        return ;
+        return;
     }
     if (head == del)
     {
         head = head->next;
     }
-    Node* temp = head;
+    Node *temp = head;
     while (temp->next != del)
     {
         temp = temp->next;
     }
     temp->next = del->next;
     delete del;
-    return ;
-
+    return;
 }
 int32_t main()
 {
-    ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
 #ifndef ONLINE_JUDGE
     freopen("error.txt", "w", stderr);
 #endif
     cout << "test the linked list " << endl;
-    cout << endl << endl;
+    cout << endl
+         << endl;
     node *head = NULL;
     insert_athead(head, 1);
     insert_athead(head, 2);
@@ -551,7 +538,7 @@ int32_t main()
     delete_from_middle(head, 3);
     cout << head << endl;
 
+    cout << "end of line" << endl;
+
     return 0;
-
-
 }
